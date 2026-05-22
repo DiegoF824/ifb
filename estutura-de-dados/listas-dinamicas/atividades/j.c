@@ -3,13 +3,16 @@
 #include <stdlib.h>
 
 void list_reverse(list_t* l) {
-    if (l->size == 0) {
-        return 1;
+    if (l == NULL || l->head == NULL) {
+        return;
     }
-    list_node_t *aux = l->head;
-    l->head = l->tail;
-    l->tail = aux;
-    if (l->size > 1) {
-        
+    list_node_t *reverter = l->head, *proximo = NULL, *anterior = NULL;
+    while (reverter != NULL) {
+        proximo = reverter->next;
+        reverter->next = anterior;
+        anterior = reverter;
+        reverter = proximo;
     }
+    l->tail = l->head;
+    l->head = anterior;
 }
